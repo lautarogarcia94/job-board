@@ -1,6 +1,23 @@
+import { FaMapMarker } from 'react-icons/fa';
 import Card from './Card';
+import { useState } from 'react';
 
 const JobCard = ({ job }) => {
+  const [showFullDescription, setShowFullDescription] = useState(false);
+
+  const getDescription = () =>
+    showFullDescription || job.description.length <= 90
+      ? job.description
+      : job.description.substring(90) + '...';
+
+  const description = getDescription();
+
+  const toggleDescription = () => {
+    setShowFullDescription((prev) => !prev);
+  };
+
+  const renderButtonFullDescription = job.description.length > 90;
+
   return (
     <Card className="relative">
       <div className="p-4">
@@ -9,7 +26,15 @@ const JobCard = ({ job }) => {
           <h3 className="text-xl font-bold">{job.title}</h3>
         </div>
 
-        <div className="mb-5">{job.description}</div>
+        <div className="mb-5">{description}</div>
+        {renderButtonFullDescription && (
+          <button
+            className="text-indigo-500 mb-5 hover:text-indigo-600"
+            onClick={toggleDescription}
+          >
+            {showFullDescription ? 'Less' : 'More'}
+          </button>
+        )}
 
         <h3 className="text-indigo-500 mb-2">{job.salary} / Year</h3>
 
@@ -17,7 +42,7 @@ const JobCard = ({ job }) => {
 
         <div className="flex flex-col lg:flex-row justify-between mb-4">
           <div className="text-orange-700 mb-3">
-            <i className="fa-solid fa-location-dot text-lg"></i>
+            <FaMapMarker className="inline text-lg mb-1 mr-1" />
             {job.location}
           </div>
           <a
