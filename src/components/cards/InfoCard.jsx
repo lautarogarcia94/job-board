@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Card from './Card';
 
 const InfoCard = ({ data }) => {
@@ -5,12 +6,12 @@ const InfoCard = ({ data }) => {
     <Card className="p-6" bg={data.bg}>
       <h2 className="text-2xl font-bold">{data.title}</h2>
       <p className="mt-2 mb-4">{data.description}</p>
-      <a
-        href={data.link}
+      <Link
+        to={data.link}
         className={`${data.linkClass} inline-block text-white rounded-lg px-4 py-2`}
       >
         {data.linkText}
-      </a>
+      </Link>
     </Card>
   );
 };
