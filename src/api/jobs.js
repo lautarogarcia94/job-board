@@ -1,3 +1,18 @@
+export const addJob = async (job) => {
+  const apiUrl = '/api/jobs';
+
+  const res = await fetch(apiUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(job),
+  });
+
+  if (!res.ok) {
+    throw new Error(`Failed to create job: ${JSON.stringify(job)}`);
+  }
+  return res.json();
+};
+
 export const getJob = async (id) => {
   const apiUrl = `/api/jobs/${id}`;
 
