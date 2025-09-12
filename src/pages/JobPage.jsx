@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Card from '../components/cards/Card';
 import Spinner from '../components/Spinner';
-import { FaArrowLeft, FaMapMarker } from 'react-icons/fa';
+import { FaArrowLeft } from 'react-icons/fa';
+import JobLocationMarker from '../components/JobLocationMarker';
 
 const JobPage = () => {
   const { id } = useParams();
@@ -54,10 +55,7 @@ const JobPage = () => {
               <Card className="p-6 text-center md:text-left">
                 <div className="text-gray-500 mb-4">{job.type}</div>
                 <h1 className="text-3xl font-bold mb-4">{job.title}</h1>
-                <div className="text-gray-500 mb-4 flex align-middle justify-center md:justify-start">
-                  <FaMapMarker className="text-orange-700 mr-1" />
-                  <p className="text-orange-700">{job.location}</p>
-                </div>
+                <JobLocationMarker location={job.location} />
               </Card>
 
               <Card className="p-6 mt-6">
