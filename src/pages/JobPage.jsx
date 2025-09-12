@@ -1,41 +1,13 @@
-import { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Await, Link, useLoaderData } from 'react-router-dom';
 import Card from '../components/cards/Card';
 import Spinner from '../components/Spinner';
 import { FaArrowLeft } from 'react-icons/fa';
 import JobLocationMarker from '../components/JobLocationMarker';
+import { Suspense } from 'react';
 
 const JobPage = () => {
-  const { id } = useParams();
-  const [job, setJob] = useState();
-
-  useEffect(() => {
-    const fetchJob = async () => {
-      console.log('por llamar al get job');
-      const data = await getJob();
-      console.log('ya llame al get job');
-      setJob(data);
-      console.log(data);
-      console.log(job);
-    };
-
-    fetchJob();
-  }, []);
-
-  const getJob = async () => {
-    const apiURL = `/api/jobs/${id}`;
-    console.log('apiURL', apiURL);
-    const res = await fetch(apiURL);
-
-    if (!res.ok) {
-      throw new Error('Failed to fetch jobs');
-    }
-    return await res.json();
-  };
-
-  return !job ? (
-    <Spinner loading={!job} />
-  ) : (
+  const { jobPromise } = useLoaderData();
+  return (
     <>
       <section>
         <div className="container m-auto py-6 px-6">
@@ -47,70 +19,75 @@ const JobPage = () => {
           </Link>
         </div>
       </section>
+      <Suspense fallback={<Spinner loading={true} />}>
+        <Await resolve={jobPromise}>
+          {(job) => (
+            <section>
+              <div className="container m-auto py-10 px-6">
+                <div className="grid grid-cols-1 md:grid-cols-[70%_30%] w-full gap-6">
+                  <main>
+                    <Card className="p-6 text-center md:text-left">
+                      <div className="text-gray-500 mb-4">{job.type}</div>
+                      <h1 className="text-3xl font-bold mb-4">{job.title}</h1>
+                      <JobLocationMarker location={job.location} />
+                    </Card>
 
-      <section>
-        <div className="container m-auto py-10 px-6">
-          <div class="grid grid-cols-1 md:grid-cols-[70%_30%] w-full gap-6">
-            <main>
-              <Card className="p-6 text-center md:text-left">
-                <div className="text-gray-500 mb-4">{job.type}</div>
-                <h1 className="text-3xl font-bold mb-4">{job.title}</h1>
-                <JobLocationMarker location={job.location} />
-              </Card>
+                    <Card className="p-6 mt-6">
+                      <h3 className="text-indigo-800 text-lg font-bold mb-6">
+                        Job Description
+                      </h3>
 
-              <Card className="p-6 mt-6">
-                <h3 className="text-indigo-800 text-lg font-bold mb-6">
-                  Job Description
-                </h3>
+                      <p className="mb-4">{job.description}</p>
 
-                <p className="mb-4">{job.description}</p>
+                      <h3 className="text-indigo-800 text-lg font-bold mb-2">
+                        Salary
+                      </h3>
 
-                <h3 className="text-indigo-800 text-lg font-bold mb-2">
-                  Salary
-                </h3>
+                      <p className="mb-4">{job.salary} / Year</p>
+                    </Card>
+                  </main>
 
-                <p className="mb-4">{job.salary} / Year</p>
-              </Card>
-            </main>
+                  <aside>
+                    <Card className="p-6 ">
+                      <h3 className="text-xl font-bold mb-6">Company Info</h3>
 
-            <aside>
-              <Card className="p-6 ">
-                <h3 className="text-xl font-bold mb-6">Company Info</h3>
+                      <h2 className="text-2xl">{job.company.name}</h2>
 
-                <h2 className="text-2xl">{job.company.name}</h2>
+                      <p className="my-2">{job.company.description}</p>
 
-                <p className="my-2">{job.company.description}</p>
+                      <hr className="my-4" />
 
-                <hr className="my-4" />
+                      <h3 className="text-xl">Contact Email:</h3>
 
-                <h3 className="text-xl">Contact Email:</h3>
+                      <p className="my-2 bg-indigo-100 p-2 font-bold">
+                        {job.company.contactEmail}
+                      </p>
 
-                <p className="my-2 bg-indigo-100 p-2 font-bold">
-                  {job.company.contactEmail}
-                </p>
+                      <h3 className="text-xl">Contact Phone:</h3>
 
-                <h3 className="text-xl">Contact Phone:</h3>
-
-                <p className="my-2 bg-indigo-100 p-2 font-bold">
-                  {job.company.contactPhone}
-                </p>
-              </Card>
-              <Card className="p-6 mt-6">
-                <h3 className="text-xl font-bold mb-6">Manage Job</h3>
-                <Link
-                  to={`/edit-job/${job.id}`}
-                  className="bg-indigo-500 hover:bg-indigo-600 text-white text-center font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block"
-                >
-                  Edit Job
-                </Link>
-                <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block">
-                  Delete Job
-                </button>
-              </Card>
-            </aside>
-          </div>
-        </div>
-      </section>
+                      <p className="my-2 bg-indigo-100 p-2 font-bold">
+                        {job.company.contactPhone}
+                      </p>
+                    </Card>
+                    <Card className="p-6 mt-6">
+                      <h3 className="text-xl font-bold mb-6">Manage Job</h3>
+                      <Link
+                        to={`/edit-job/${job.id}`}
+                        className="bg-indigo-500 hover:bg-indigo-600 text-white text-center font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block"
+                      >
+                        Edit Job
+                      </Link>
+                      <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block">
+                        Delete Job
+                      </button>
+                    </Card>
+                  </aside>
+                </div>
+              </div>
+            </section>
+          )}
+        </Await>
+      </Suspense>
     </>
   );
 };
