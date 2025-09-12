@@ -14,7 +14,7 @@ import {
   customJobsLoader,
   jobLoader,
 } from './loaders/jobLoader';
-import Spinner from './components/Spinner';
+import AddJobPage from './pages/AddJobPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,18 +22,14 @@ const router = createBrowserRouter(
       <Route index element={<HomePage />} loader={customJobsLoader} />
       <Route path="/jobs" element={<JobsPage />} loader={allJobsLoader} />
       <Route path="/jobs/:id" element={<JobPage />} loader={jobLoader} />
+      <Route path="/add-job" element={<AddJobPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Route>
   )
 );
 
 const App = () => {
-  return (
-    <RouterProvider
-      router={router}
-      fallbackElement={<Spinner loading={true} />}
-    />
-  );
+  return <RouterProvider router={router} />;
 };
 
 export default App;
