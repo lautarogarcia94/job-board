@@ -10,7 +10,9 @@ const HomePage = () => {
       <Hero />
       <HomeInfoCards />
       <JobListings isHome={true} />
-      <ViewAllJobs />
+      <section className="bg-white">
+        <ViewAllJobs />
+      </section>
     </>
   );
 };
