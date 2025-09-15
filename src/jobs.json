@@ -2,7 +2,7 @@
   "jobs": [
     {
       "id": "1",
-      "title": "Senior React Developer",
+      "title": "Senior React Dev",
       "type": "Full-Time",
       "description": "We are seeking a talented Front-End Developer to join our team in Boston, MA. The ideal candidate will have strong skills in HTML, CSS, and JavaScript, with experience working with modern JavaScript frameworks such as React or Angular.",
       "location": "Boston, MA",
@@ -16,7 +16,7 @@
     },
     {
       "id": "3",
-      "title": "React.js Dev",
+      "title": "React.js Developer",
       "type": "Full-Time",
       "location": "Brooklyn, NY",
       "description": "Are you passionate about front-end development? Join our team in vibrant Brooklyn, NY, and work on exciting projects that make a difference. We offer competitive compensation and a collaborative work environment where your ideas are valued.",
@@ -99,17 +99,31 @@
       }
     },
     {
-      "id": "4bd6",
-      "title": "ddas",
+      "id": "56aa",
+      "title": "a",
       "type": "Full-Time",
-      "description": "ddas",
-      "location": "asdasd",
-      "salary": "Over $200K",
+      "description": "s",
+      "location": "as",
+      "salary": "Under $50K",
+      "company": {
+        "name": "as",
+        "description": "as",
+        "contactEmail": "a@a",
+        "contactPhone": ""
+      }
+    },
+    {
+      "id": "37cb",
+      "title": "asd",
+      "type": "Full-Time",
+      "description": "",
+      "location": "asd",
+      "salary": "Under $50K",
       "company": {
         "name": "asd",
-        "description": "asd",
+        "description": "",
         "contactEmail": "asd@asd",
-        "contactPhone": ""
+        "contactPhone": "asd@"
       }
     }
   ]

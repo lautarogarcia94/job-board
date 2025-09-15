@@ -1,4 +1,4 @@
-const TextAreaForm = (textAreaParams) => {
+const TextAreaForm = ({ textAreaParams }) => {
   return (
     <div className="mb-4">
       <label
