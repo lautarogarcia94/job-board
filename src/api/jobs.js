@@ -1,7 +1,19 @@
-export const addJob = async (job) => {
-  const apiUrl = '/api/jobs';
+const API_URL = '/api/jobs';
 
-  const res = await fetch(apiUrl, {
+export const deleteJob = async (id) => {
+  const res = await fetch(API_URL + `/${id}`, {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+  if (!res.ok) {
+    throw new Error(`Failed to delete job with id: ${id}`);
+  }
+  return res.json();
+};
+
+export const addJob = async (job) => {
+  const res = await fetch(API_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(job),
@@ -20,7 +32,7 @@ export const getJob = async (id) => {
 };
 
 export const getJobs = async (limit) => {
-  let apiUrl = '/api/jobs';
+  let apiUrl = API_URL;
 
   if (limit) {
     apiUrl += `?_limit=${limit}`;

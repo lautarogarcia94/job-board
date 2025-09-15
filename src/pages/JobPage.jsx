@@ -1,12 +1,31 @@
-import { Await, Link, useLoaderData } from 'react-router-dom';
+import { Await, Link, useLoaderData, useNavigate } from 'react-router-dom';
 import Card from '../components/cards/Card';
 import Spinner from '../components/Spinner';
 import { FaArrowLeft } from 'react-icons/fa';
 import JobLocationMarker from '../components/JobLocationMarker';
-import { Suspense } from 'react';
+import { Suspense, useState } from 'react';
+import { deleteJob } from '../api/jobs';
+import { toast } from 'react-toastify';
 
 const JobPage = () => {
   const { jobPromise } = useLoaderData();
+  const [loadingDelete, setLoadingDelete] = useState(false);
+  const navigate = useNavigate();
+
+  const handleDelete = async (id) => {
+    try {
+      setLoadingDelete(true);
+      await deleteJob(id);
+      toast.success('Job deleted');
+      navigate('/jobs');
+    } catch (e) {
+      toast.error('Something went wrong while deleting the job');
+      console.log('Error while deleting a job', e);
+    } finally {
+      setLoadingDelete(false);
+    }
+  };
+
   return (
     <>
       <section>
@@ -77,8 +96,27 @@ const JobPage = () => {
                       >
                         Edit Job
                       </Link>
-                      <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block">
-                        Delete Job
+                      <button
+                        className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block"
+                        onClick={() => handleDelete(job.id)}
+                        disabled={loadingDelete}
+                      >
+                        {loadingDelete ? (
+                          <>
+                            <Spinner
+                              loading={true}
+                              size={15}
+                              override={{
+                                display: 'inline-block',
+                                margin: 0,
+                                marginRight: '0.5rem',
+                              }}
+                            />
+                            Deleting..
+                          </>
+                        ) : (
+                          'Delete Job'
+                        )}
                       </button>
                     </Card>
                   </aside>
