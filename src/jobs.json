@@ -30,7 +30,7 @@
     },
     {
       "id": "4",
-      "title": "React Front-End Developer",
+      "title": "React Front-End Dev",
       "type": "Part-Time",
       "description": "Join our team as a Part-Time Front-End Developer in beautiful Pheonix, AZ. We are looking for a self-motivated individual with a passion for creating engaging user experiences. This position offers flexible hours and the opportunity to work remotely.",
       "location": "Pheonix, AZ",
@@ -72,7 +72,7 @@
     },
     {
       "id": "7",
-      "title": "React Native Developer",
+      "title": "React Native Dev",
       "type": "Full-Time",
       "description": "Join our team as a Front-End Developer in beautiful Portland, OR. We are looking for a skilled and enthusiastic individual to help us create innovative web solutions. Competitive salary and great benefits package available.",
       "location": "Portland, OR",
@@ -85,8 +85,8 @@
       }
     },
     {
-      "id": "7f03",
-      "title": "a",
+      "id": "6d3e",
+      "title": "aasdasd",
       "type": "Full-Time",
       "description": "a",
       "location": "a",
@@ -94,7 +94,21 @@
       "company": {
         "name": "a",
         "description": "a",
-        "contactEmail": "a@q",
+        "contactEmail": "a@a",
+        "contactPhone": ""
+      }
+    },
+    {
+      "id": "4bd6",
+      "title": "ddas",
+      "type": "Full-Time",
+      "description": "ddas",
+      "location": "asdasd",
+      "salary": "Over $200K",
+      "company": {
+        "name": "asd",
+        "description": "asd",
+        "contactEmail": "asd@asd",
         "contactPhone": ""
       }
     }
