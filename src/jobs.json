@@ -83,6 +83,20 @@
         "contactEmail": "contact@ipsumlorem.com",
         "contactPhone": "555-555-5555"
       }
+    },
+    {
+      "id": "c900",
+      "title": "prueba del titulo",
+      "type": "Part-Time",
+      "description": "prueba del job description",
+      "location": "prueba de job location",
+      "salary": "$70K - 80K",
+      "company": {
+        "name": "Prueba CompanyName",
+        "description": "prueba companyDescription",
+        "contactEmail": "prueba@Mail",
+        "contactPhone": ""
+      }
     }
   ]
 }

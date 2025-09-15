@@ -1,24 +1,35 @@
-const TextAreaForm = ({ textAreaParams }) => {
+const TextAreaForm = ({
+  label,
+  placeholder,
+  errors,
+  field,
+  name,
+  register,
+}) => {
+  const textareaProps = field
+    ? field
+    : register
+    ? register(name, { required: `${label} is required` })
+    : {};
+
+  const errorKey = field ? field.name.split('.').pop() : name;
+
   return (
     <div className="mb-4">
-      <label
-        htmlFor={textAreaParams.id}
-        className="block text-gray-700 font-bold mb-2"
-      >
-        {textAreaParams.labelTitle}
+      <label htmlFor={name} className="block text-gray-700 font-bold mb-2">
+        {label}
       </label>
       <textarea
-        id={textAreaParams.id}
-        name={textAreaParams.id}
+        id={name}
         className="border rounded w-full py-2 px-3"
         rows="4"
-        placeholder={textAreaParams.placeholder}
-        value={textAreaParams.value}
-        onChange={textAreaParams.onChangeAction}
-        required={textAreaParams.required}
-      ></textarea>
+        placeholder={placeholder}
+        {...textareaProps}
+      />
+      {errors?.[errorKey] && (
+        <p className="text-red-500 text-sm mt-1">{errors[errorKey]?.message}</p>
+      )}
     </div>
   );
 };
-
 export default TextAreaForm;

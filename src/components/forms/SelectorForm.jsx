@@ -1,26 +1,23 @@
-const SelectorForm = ({ selectorParams }) => {
+const SelectorForm = ({ name, label, options, register, required, errors }) => {
   return (
     <div className="mb-4">
-      <label
-        htmlFor={selectorParams.id}
-        className="block text-gray-700 font-bold mb-2"
-      >
-        {selectorParams.labelTitle}
+      <label htmlFor={name} className="block text-gray-700 font-bold mb-2">
+        {label}
       </label>
       <select
-        id={selectorParams.id}
-        name={selectorParams.id}
+        id={name}
         className="border rounded w-full py-2 px-3"
-        value={selectorParams.value}
-        required={selectorParams.required}
-        onChange={selectorParams.onChangeAction}
+        {...register(name, { required })}
       >
-        {selectorParams.options.map((option) => (
+        {options.map((option) => (
           <option value={option} key={option}>
             {option}
           </option>
         ))}
       </select>
+      {errors?.[name] && (
+        <p className="text-red-500 text-sm mt-1">{label} is required</p>
+      )}
     </div>
   );
 };
