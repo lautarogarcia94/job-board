@@ -17,6 +17,7 @@ const ActionButton = ({
       )}
       type={type}
       onClick={onClickMethod}
+      disabled={loading}
     >
       {loading ? (
         <>

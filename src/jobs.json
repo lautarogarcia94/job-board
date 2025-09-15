@@ -16,7 +16,7 @@
     },
     {
       "id": "3",
-      "title": "React.js Developer",
+      "title": "React.js Dev",
       "type": "Full-Time",
       "location": "Brooklyn, NY",
       "description": "Are you passionate about front-end development? Join our team in vibrant Brooklyn, NY, and work on exciting projects that make a difference. We offer competitive compensation and a collaborative work environment where your ideas are valued.",
@@ -82,48 +82,6 @@
         "description": "Port Solutions is a leading technology company specializing in software development and digital marketing. We are committed to providing our clients with cutting-edge solutions and our employees with a supportive and rewarding work environment.",
         "contactEmail": "contact@ipsumlorem.com",
         "contactPhone": "555-555-5555"
-      }
-    },
-    {
-      "id": "6d3e",
-      "title": "aasdasd",
-      "type": "Full-Time",
-      "description": "a",
-      "location": "a",
-      "salary": "Under $50K",
-      "company": {
-        "name": "a",
-        "description": "a",
-        "contactEmail": "a@a",
-        "contactPhone": ""
-      }
-    },
-    {
-      "id": "56aa",
-      "title": "a",
-      "type": "Full-Time",
-      "description": "s",
-      "location": "as",
-      "salary": "Under $50K",
-      "company": {
-        "name": "as",
-        "description": "as",
-        "contactEmail": "a@a",
-        "contactPhone": ""
-      }
-    },
-    {
-      "id": "37cb",
-      "title": "asd",
-      "type": "Full-Time",
-      "description": "",
-      "location": "asd",
-      "salary": "Under $50K",
-      "company": {
-        "name": "asd",
-        "description": "",
-        "contactEmail": "asd@asd",
-        "contactPhone": "asd@"
       }
     }
   ]
