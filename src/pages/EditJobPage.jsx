@@ -5,6 +5,7 @@ import Card from '../components/cards/Card';
 import { useState } from 'react';
 import { updateJob } from '../api/jobs';
 import { toast } from 'react-toastify';
+import ActionButton from '../components/ActionButton';
 
 const EditJobPage = () => {
   const { jobPromise } = useLoaderData();
@@ -240,27 +241,11 @@ const EditJobPage = () => {
                 </div>
 
                 <div>
-                  <button
-                    className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline"
-                    type="submit"
-                  >
-                    {loadingUpdate ? (
-                      <>
-                        <Spinner
-                          color="white"
-                          size={15}
-                          override={{
-                            display: 'inline-block',
-                            margin: 0,
-                            marginRight: '0.5rem',
-                          }}
-                        />
-                        Updating...
-                      </>
-                    ) : (
-                      'Update Job'
-                    )}
-                  </button>
+                  <ActionButton
+                    loading={loadingUpdate}
+                    normalText="Update Job"
+                    loadingText="Updating Job..."
+                  />
                 </div>
               </form>
             </Card>

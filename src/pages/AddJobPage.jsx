@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Card from '../components/cards/Card';
 import { toast } from 'react-toastify';
 import Spinner from '../components/Spinner';
+import ActionButton from '../components/ActionButton';
 
 const AddJobPage = () => {
   const navigate = useNavigate();
@@ -239,27 +240,11 @@ const AddJobPage = () => {
             </div>
 
             <div>
-              <button
-                className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline"
-                type="submit"
-              >
-                {loadingCreate ? (
-                  <>
-                    <Spinner
-                      color="white"
-                      size={15}
-                      override={{
-                        display: 'inline-block',
-                        margin: 0,
-                        marginRight: '0.5rem',
-                      }}
-                    />
-                    Adding Job...
-                  </>
-                ) : (
-                  'Add Job'
-                )}
-              </button>
+              <ActionButton
+                loading={loadingCreate}
+                normalText="Add Job"
+                loadingText="Adding Job..."
+              />
             </div>
           </form>
         </Card>

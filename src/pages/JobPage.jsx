@@ -6,6 +6,7 @@ import JobLocationMarker from '../components/JobLocationMarker';
 import { Suspense, useState } from 'react';
 import { deleteJob } from '../api/jobs';
 import { toast } from 'react-toastify';
+import ActionButton from '../components/ActionButton';
 
 const JobPage = () => {
   const { jobPromise } = useLoaderData();
@@ -96,27 +97,14 @@ const JobPage = () => {
                       >
                         Edit Job
                       </Link>
-                      <button
-                        className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block"
-                        onClick={() => handleDelete(job.id)}
-                        disabled={loadingDelete}
-                      >
-                        {loadingDelete ? (
-                          <>
-                            <Spinner
-                              size={15}
-                              override={{
-                                display: 'inline-block',
-                                margin: 0,
-                                marginRight: '0.5rem',
-                              }}
-                            />
-                            Deleting..
-                          </>
-                        ) : (
-                          'Delete Job'
-                        )}
-                      </button>
+                      <ActionButton
+                        loading={loadingDelete}
+                        normalText="Delete Job"
+                        loadingText="Deleting Job..."
+                        className="bg-red-500 hover:bg-red-600 mt-4 block"
+                        type="button"
+                        onClickMethod={() => handleDelete(job.id)}
+                      />
                     </Card>
                   </aside>
                 </div>
