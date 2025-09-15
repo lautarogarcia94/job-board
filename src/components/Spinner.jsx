@@ -1,6 +1,10 @@
 import { ClipLoader } from 'react-spinners';
 
-const Spinner = ({ loading, size = 150, override: customOverride }) => {
+const Spinner = ({
+  color = '#4338ca',
+  size = 150,
+  override: customOverride,
+}) => {
   const defaultOverride = {
     display: 'block',
     margin: '100px auto',
@@ -8,14 +12,7 @@ const Spinner = ({ loading, size = 150, override: customOverride }) => {
 
   const mergedOverride = { ...defaultOverride, ...customOverride };
 
-  return (
-    <ClipLoader
-      color="#4338ca"
-      loading={loading}
-      cssOverride={mergedOverride}
-      size={size}
-    />
-  );
+  return <ClipLoader color={color} cssOverride={mergedOverride} size={size} />;
 };
 
 export default Spinner;
