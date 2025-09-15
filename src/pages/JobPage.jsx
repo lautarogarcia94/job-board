@@ -86,7 +86,9 @@ const JobPage = () => {
                       <h3 className="text-xl">Contact Phone:</h3>
 
                       <p className="my-2 bg-indigo-100 p-2 font-bold">
-                        {job.company.contactPhone}
+                        {job.company.contactPhone
+                          ? job.company.contactPhone
+                          : '-'}
                       </p>
                     </Card>
                     <Card className="p-6 mt-6">

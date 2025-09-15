@@ -1,21 +1,9 @@
-import { useState } from 'react';
 import ActionButton from '../ActionButton';
 import Card from '../cards/Card';
-
-import {
-  companyDescriptionTextAreaParam,
-  companyNameInputParam,
-  contactEmailInputParam,
-  contactPhoneInputParam,
-  descriptionTextAreaParam,
-  locationInputParam,
-  salarySelectorParam,
-  titleInputParam,
-  typeSelectorParam,
-} from '../../utils/jobFormUtils';
 import SelectorForm from './SelectorForm';
 import InputForm from './InputForm';
 import TextAreaForm from './TextAreaForm';
+import { Controller, useForm } from 'react-hook-form';
 
 const JobForm = ({
   actionText,
@@ -24,77 +12,146 @@ const JobForm = ({
   isSubmitting,
   submittingButtonLabel,
 }) => {
-  const [job, setJob] = useState(initialJob);
-
-  const onChangeEvent = ({ target: { name, value } }) => {
-    if (name.startsWith('company.')) {
-      const field = name.split('.')[1];
-      setJob((prev) => ({
-        ...prev,
-        company: { ...prev.company, [field]: value },
-      }));
-    } else {
-      setJob((prev) => ({ ...prev, [name]: value }));
-    }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit(job);
-  };
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({ defaultValues: initialJob });
 
   return (
     <Card className="px-6 py-8 mb-4 border border-gray-200 m-4 md:m-0">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <h2 className="text-3xl text-center font-semibold mb-6">
           {actionText}
         </h2>
 
         <SelectorForm
-          selectorParams={typeSelectorParam(job.type, onChangeEvent)}
-        />
-
-        <InputForm inputParams={titleInputParam(job.title, onChangeEvent)} />
-
-        <TextAreaForm
-          textAreaParams={descriptionTextAreaParam(
-            job.description,
-            onChangeEvent
-          )}
-        />
-
-        <SelectorForm
-          selectorParams={salarySelectorParam(job.salary, onChangeEvent)}
+          name="type"
+          label="Job Type"
+          options={['Full-Time', 'Part-Time', 'Remote', 'Internship']}
+          register={register}
+          required
+          errors={errors}
         />
 
         <InputForm
-          inputParams={locationInputParam(job.location, onChangeEvent)}
+          name="title"
+          label="Job Listing Name"
+          placeholder="Job Name"
+          register={register}
+          required
+          errors={errors}
+        />
+
+        <TextAreaForm
+          name="description"
+          label="Job Description"
+          placeholder="Add any job duties, expectations, requirements, etc"
+          register={register}
+          required
+          errors={errors}
+        />
+
+        <SelectorForm
+          name="salary"
+          label="Job Salary"
+          options={[
+            'Under $50K',
+            '$50K - 60K',
+            '$60K - 70K',
+            '$70K - 80K',
+            '$80K - 90K',
+            '$90K - 100K',
+            '$100K - 125K',
+            '$125K - 150K',
+            '$150K - 175K',
+            '$175K - 200K',
+            'Over $200K',
+          ]}
+          register={register}
+          required
+          errors={errors}
+        />
+
+        <InputForm
+          name="location"
+          label="Location"
+          placeholder="Company Location"
+          register={register}
+          required
+          errors={errors}
         />
 
         <h3 className="text-2xl mb-5">Company Info</h3>
 
-        <InputForm
-          inputParams={companyNameInputParam(job.company.name, onChangeEvent)}
-        />
-
-        <TextAreaForm
-          textAreaParams={companyDescriptionTextAreaParam(
-            job.company.description,
-            onChangeEvent
+        <Controller
+          name="company.name"
+          control={control}
+          rules={{ required: 'Company Name is required' }}
+          render={({ field }) => (
+            <InputForm
+              field={field}
+              label="Company Name"
+              placeholder="Company Name"
+              errors={errors.company ?? {}} // <-- asegura que sea un objeto
+            />
           )}
         />
 
-        <InputForm
-          inputParams={contactEmailInputParam(
-            job.company.contactEmail,
-            onChangeEvent
+        <Controller
+          name="company.description"
+          control={control}
+          rules={{ required: 'Company Description is required' }}
+          render={({ field }) => (
+            <TextAreaForm
+              field={field}
+              label="Company Description"
+              placeholder="What does your company do?"
+              errors={errors.company ?? {}} // <-- asegura que sea un objeto
+            />
           )}
         />
 
-        <InputForm
-          inputParams={contactPhoneInputParam(
-            job.company.contactPhone,
-            onChangeEvent
+        <Controller
+          name="company.contactEmail"
+          control={control}
+          rules={{
+            required: 'Contact Email is required',
+            pattern: {
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              message: 'Email must be a valid format: example@mail.com',
+            },
+          }}
+          render={({ field }) => (
+            <InputForm
+              field={field}
+              label="Contact Email"
+              placeholder="Email address for applicants"
+              type="email"
+              errors={errors.company ?? {}} // <-- asegura que sea un objeto
+            />
+          )}
+        />
+
+        <Controller
+          name="company.contactPhone"
+          control={control}
+          rules={{
+            pattern: {
+              value: /^[0-9+\-()\s]{7,15}$/,
+              message:
+                'Phone must be 7-15 digits and can include + - ( ) spaces',
+            },
+          }}
+          render={({ field }) => (
+            <InputForm
+              field={field}
+              label="Contact Phone"
+              placeholder="Optional phone for applicants"
+              type="tel"
+              errors={errors.company ?? {}} // <-- asegura que sea un objeto
+            />
           )}
         />
 
