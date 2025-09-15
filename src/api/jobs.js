@@ -1,5 +1,18 @@
 const API_URL = '/api/jobs';
 
+export const updateJob = async (job) => {
+  const res = await fetch(API_URL + `/${job.id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(job),
+  });
+
+  if (!res.ok) {
+    throw new Error(`Failed to delete job with id: ${job.id}`);
+  }
+  return res.json();
+};
+
 export const deleteJob = async (id) => {
   const res = await fetch(API_URL + `/${id}`, {
     method: 'DELETE',

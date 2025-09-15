@@ -38,7 +38,7 @@ const JobPage = () => {
           </Link>
         </div>
       </section>
-      <Suspense fallback={<Spinner loading={true} />}>
+      <Suspense fallback={<Spinner />}>
         <Await resolve={jobPromise}>
           {(job) => (
             <section>
@@ -104,7 +104,6 @@ const JobPage = () => {
                         {loadingDelete ? (
                           <>
                             <Spinner
-                              loading={true}
                               size={15}
                               override={{
                                 display: 'inline-block',

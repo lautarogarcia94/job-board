@@ -2,9 +2,12 @@ import { useState } from 'react';
 import { addJob } from '../api/jobs';
 import { useNavigate } from 'react-router-dom';
 import Card from '../components/cards/Card';
+import { toast } from 'react-toastify';
+import Spinner from '../components/Spinner';
 
 const AddJobPage = () => {
   const navigate = useNavigate();
+  const [loadingCreate, setLoadingCreate] = useState(false);
 
   const [job, setJob] = useState({
     title: '',
@@ -34,8 +37,18 @@ const AddJobPage = () => {
 
   const submitForm = async (e) => {
     e.preventDefault();
-    await addJob(job);
-    navigate('/jobs');
+    try {
+      setLoadingCreate(true);
+
+      await addJob(job);
+      toast.success('Job created');
+      navigate('/jobs');
+    } catch (e) {
+      toast.error('Something went wrong while creating the job');
+      console.log('Error while deleting a job', e);
+    } finally {
+      setLoadingCreate(false);
+    }
   };
 
   return (
@@ -230,7 +243,22 @@ const AddJobPage = () => {
                 className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline"
                 type="submit"
               >
-                Add Job
+                {loadingCreate ? (
+                  <>
+                    <Spinner
+                      color="white"
+                      size={15}
+                      override={{
+                        display: 'inline-block',
+                        margin: 0,
+                        marginRight: '0.5rem',
+                      }}
+                    />
+                    Adding Job...
+                  </>
+                ) : (
+                  'Add Job'
+                )}
               </button>
             </div>
           </form>
