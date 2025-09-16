@@ -57,17 +57,17 @@ const JobForm = ({
           name="salary"
           label="Job Salary"
           options={[
-            'Under $50K',
-            '$50K - 60K',
-            '$60K - 70K',
-            '$70K - 80K',
-            '$80K - 90K',
-            '$90K - 100K',
-            '$100K - 125K',
-            '$125K - 150K',
-            '$150K - 175K',
-            '$175K - 200K',
-            'Over $200K',
+            'Under $50K / Year',
+            '$50K - 60K / Year',
+            '$60K - 70K / Year',
+            '$70K - 80K / Year',
+            '$80K - 90K / Year',
+            '$90K - 100K / Year',
+            '$100K - 125K / Year',
+            '$125K - 150K / Year',
+            '$150K - 175K / Year',
+            '$175K - 200K / Year',
+            'Over $200K / Year',
           ]}
           register={register}
           required
