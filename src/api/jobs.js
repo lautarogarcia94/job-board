@@ -1,7 +1,7 @@
-const API_URL = '/api/jobs';
+const API_URL = '/api/jobs/';
 
 export const updateJob = async (job) => {
-  const res = await fetch(API_URL + `/${job.id}`, {
+  const res = await fetch(API_URL + job.id, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(job),
@@ -14,7 +14,7 @@ export const updateJob = async (job) => {
 };
 
 export const deleteJob = async (id) => {
-  const res = await fetch(API_URL + `/${id}`, {
+  const res = await fetch(API_URL + id, {
     method: 'DELETE',
     headers: { 'Content-Type': 'application/json' },
   });
@@ -39,9 +39,7 @@ export const addJob = async (job) => {
 };
 
 export const getJob = async (id) => {
-  const apiUrl = `/api/jobs/${id}`;
-
-  return fetchJobs(apiUrl);
+  return fetchJobsWithParam(API_URL + id);
 };
 
 export const getJobs = async (limit) => {
@@ -51,15 +49,15 @@ export const getJobs = async (limit) => {
     apiUrl += `?_limit=${limit}`;
   }
 
-  return fetchJobs(apiUrl);
+  return fetchJobsWithParam(apiUrl);
 };
 
-const fetchJobs = async (apiUrl) => {
+export const fetchJobsWithParam = async (apiUrl) => {
   const res = await fetch(apiUrl);
 
   if (!res.ok) {
     throw new Error('Failed to fetch jobs');
   }
 
-  return await res.json();
+  return res.json();
 };
