@@ -4,6 +4,7 @@ import SelectorForm from './SelectorForm';
 import InputForm from './InputForm';
 import TextAreaForm from './TextAreaForm';
 import { Controller, useForm } from 'react-hook-form';
+import { useEffect } from 'react';
 
 const JobForm = ({
   actionText,
@@ -16,8 +17,13 @@ const JobForm = ({
     register,
     handleSubmit,
     control,
+    reset,
     formState: { errors },
   } = useForm({ defaultValues: initialJob });
+
+  useEffect(() => {
+    reset(initialJob);
+  }, [initialJob, reset]);
 
   return (
     <Card className="px-6 py-8 mb-4 border border-gray-200 m-4 md:m-0">
