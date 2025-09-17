@@ -16,7 +16,7 @@ const JobFormContainer = ({ jobId }) => {
     type: 'Full-Time',
     description: '',
     location: '',
-    salary: 'Under $50K',
+    salary: 'Under $50K / Year',
     company: {
       name: '',
       description: '',
