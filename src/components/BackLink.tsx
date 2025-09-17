@@ -1,7 +1,9 @@
 import { FaArrowLeft } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
-const BackLink = ({ linkTo, message }) => {
+type BackLinkProps = { linkTo: string; message: string };
+
+const BackLink = ({ linkTo, message }: BackLinkProps) => {
   return (
     <section>
       <div className="container m-auto py-6 px-6">

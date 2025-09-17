@@ -1,6 +1,16 @@
 import clsx from 'clsx';
 import Spinner from './Spinner';
 
+type ActionButtonProps = {
+  loading?: boolean;
+  normalText: string;
+  loadingText?: string;
+  className?: string;
+  bg?: string;
+  shape?: string;
+  type?: 'button' | 'submit' | 'reset';
+  onClickMethod: () => void;
+};
 const ActionButton = ({
   loading,
   normalText,
@@ -10,7 +20,7 @@ const ActionButton = ({
   shape,
   type = 'submit',
   onClickMethod,
-}) => {
+}: ActionButtonProps) => {
   return (
     <button
       className={clsx(

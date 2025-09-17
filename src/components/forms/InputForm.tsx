@@ -1,3 +1,19 @@
+import { UseFormRegisterReturn } from 'react-hook-form';
+
+type FieldType = {
+  name: string;
+};
+
+type InputFormProps = {
+  label: string;
+  type?: string;
+  placeholder: string;
+  errors: Record<string, { message: string }>;
+  field?: FieldType;
+  name: string;
+  register?: (name: string, options?: any) => UseFormRegisterReturn;
+};
+
 const InputForm = ({
   label,
   type = 'text',
@@ -6,15 +22,15 @@ const InputForm = ({
   field,
   name,
   register,
-}) => {
+}: InputFormProps) => {
   const inputProps = field
-    ? field // viene de Controller
+    ? field
     : register
     ? register(name, { required: `${label} is required` })
     : {};
 
-  // Determinar el nombre para mostrar errores
   const errorKey = field ? field.name.split('.').pop() : name;
+  const errorMessage = errorKey ? errors?.[errorKey]?.message : undefined;
 
   return (
     <div className="mb-4">
@@ -28,8 +44,8 @@ const InputForm = ({
         placeholder={placeholder}
         {...inputProps}
       />
-      {errors?.[errorKey] && (
-        <p className="text-red-500 text-sm mt-1">{errors[errorKey]?.message}</p>
+      {errorMessage && (
+        <p className="text-red-500 text-sm mt-1">{errorMessage}</p>
       )}
     </div>
   );
