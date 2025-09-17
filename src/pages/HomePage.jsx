@@ -4,6 +4,7 @@ import JobListings from '../components/JobListings';
 import ViewAllJobs from '../components/ViewAllJobs';
 import { Suspense } from 'react';
 import Spinner from '../components/Spinner';
+import ErrorBoundary from '../components/ErrorBoundary';
 
 const HomePage = () => {
   return (
@@ -15,9 +16,15 @@ const HomePage = () => {
           <h2 className="text-3xl font-bold text-indigo-500 mb-6 text-center">
             Recent Jobs
           </h2>
-          <Suspense fallback={<Spinner />}>
-            <JobListings isHome={true} />
-          </Suspense>
+          <ErrorBoundary
+            errorMessage="Error loading data"
+            errorDescription="We couldn't fetch the information. Please try again later."
+            action="Reload"
+          >
+            <Suspense fallback={<Spinner />}>
+              <JobListings isHome={true} />
+            </Suspense>
+          </ErrorBoundary>
         </div>
       </section>
       <section className="bg-white">

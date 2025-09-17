@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import JobListings from '../components/JobListings';
 import Spinner from '../components/Spinner';
+import ErrorBoundary from '../components/ErrorBoundary';
 
 const JobsPage = () => {
   return (
@@ -10,9 +11,15 @@ const JobsPage = () => {
           <h2 className="text-3xl font-bold text-indigo-500 mb-6 text-center">
             Browse Jobs
           </h2>
-          <Suspense fallback={<Spinner />}>
-            <JobListings />
-          </Suspense>
+          <ErrorBoundary
+            errorMessage="Error loading data"
+            errorDescription="We couldn't fetch the information. Please try again later."
+            action="Reload"
+          >
+            <Suspense fallback={<Spinner />}>
+              <JobListings />
+            </Suspense>
+          </ErrorBoundary>
         </div>
       </section>
     </section>
