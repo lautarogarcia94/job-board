@@ -97,7 +97,8 @@ const JobDetails = () => {
                   loading={loadingDelete}
                   normalText="Delete Job"
                   loadingText="Deleting Job..."
-                  className="bg-red-500 hover:bg-red-600 mt-4 block"
+                  bg="bg-red-500 hover:bg-red-600"
+                  className=" mt-4 block"
                   type="button"
                   onClickMethod={() => handleDelete(job.id)}
                 />

@@ -8,7 +8,7 @@ const InfoCard = ({ data }) => {
       <p className="mt-2 mb-4">{data.description}</p>
       <Link
         to={data.link}
-        className={`${data.linkClass} inline-block text-white rounded-lg px-4 py-2`}
+        className={`${data.linkClass} inline-block text-white rounded-md px-4 py-2`}
       >
         {data.linkText}
       </Link>

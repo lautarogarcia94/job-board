@@ -19,8 +19,14 @@ class ErrorBoundary extends React.Component {
     if (this.state.hasError) {
       return (
         <ErrorPage
-          errorMessage="Oops! Something went wrong."
-          errorDescription="We are working to fix it. Please try reloading the page."
+          errorMessage={
+            this.props.errorMessage || 'Oops! Something went wrong.'
+          }
+          errorDescription={
+            this.props.errorDescription ||
+            'We are working to fix it. Please try reloading the page.'
+          }
+          buttonAction={this.props.action}
         />
       );
     }
