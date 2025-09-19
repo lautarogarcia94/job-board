@@ -1,34 +1,32 @@
-import { UseFormRegisterReturn } from 'react-hook-form';
+import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
 type FieldType = {
   name: string;
 };
 
-type TextFormProps = {
+type TextFormProps<T extends FieldValues> = {
   label: string;
   placeholder: string;
-  errors: Record<string, { message: string }>;
   field?: FieldType;
-  name: string;
-  register?: (name: string, options?: any) => UseFormRegisterReturn;
+  name?: Path<T>;
+  register?: UseFormRegister<T>;
+  errorMessage?: string;
+  required?: boolean;
 };
 
-const TextAreaForm = ({
+function TextAreaForm<T extends FieldValues>({
   label,
   placeholder,
-  errors,
+  errorMessage,
   field,
   name,
   register,
-}: TextFormProps) => {
+}: TextFormProps<T>) {
   const textareaProps = field
     ? field
-    : register
+    : register && name
     ? register(name, { required: `${label} is required` })
     : {};
-
-  const errorKey = field ? field.name.split('.').pop() : name;
-  const errorMessage = errorKey ? errors?.[errorKey]?.message : undefined;
 
   return (
     <div className="mb-4">
@@ -47,5 +45,5 @@ const TextAreaForm = ({
       )}
     </div>
   );
-};
+}
 export default TextAreaForm;

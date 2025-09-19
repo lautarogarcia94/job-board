@@ -9,7 +9,7 @@ type ActionButtonProps = {
   bg?: string;
   shape?: string;
   type?: 'button' | 'submit' | 'reset';
-  onClickMethod: () => void;
+  onClickMethod?: () => void;
 };
 const ActionButton = ({
   loading,

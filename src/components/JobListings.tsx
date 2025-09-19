@@ -2,8 +2,11 @@ import JobCard from './cards/JobCard';
 import { useQuery } from '@tanstack/react-query';
 import { getJobs } from '../api/jobs';
 
-const JobListings = ({ isHome = false }) => {
-  const DEFAULT_HOM_PAGE_JOBS = 3;
+type JobListingsProps = {
+  isHome: boolean;
+};
+const JobListings = ({ isHome = false }: JobListingsProps) => {
+  const DEFAULT_HOM_PAGE_JOBS = '3';
   const limit = isHome ? DEFAULT_HOM_PAGE_JOBS : undefined;
 
   const { data: jobs, isFetching } = useQuery({

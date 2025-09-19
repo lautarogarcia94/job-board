@@ -5,6 +5,15 @@ import InputForm from './InputForm';
 import TextAreaForm from './TextAreaForm';
 import { Controller, useForm } from 'react-hook-form';
 import { useEffect } from 'react';
+import { Job, NewJob } from '../../types/job';
+
+type JobFormProps = {
+  actionText: string;
+  initialJob: Job | NewJob;
+  onSubmit: (job: Job | NewJob) => void;
+  isSubmitting: boolean;
+  submittingButtonLabel: string;
+};
 
 const JobForm = ({
   actionText,
@@ -12,14 +21,14 @@ const JobForm = ({
   onSubmit,
   isSubmitting,
   submittingButtonLabel,
-}) => {
+}: JobFormProps) => {
   const {
     register,
     handleSubmit,
     control,
     reset,
     formState: { errors },
-  } = useForm({ defaultValues: initialJob });
+  } = useForm<Job | NewJob>({ defaultValues: initialJob });
 
   useEffect(() => {
     reset(initialJob);
@@ -47,7 +56,7 @@ const JobForm = ({
           placeholder="Job Name"
           register={register}
           required
-          errors={errors}
+          errorMessage={errors.title?.message as string}
         />
 
         <TextAreaForm
@@ -56,7 +65,7 @@ const JobForm = ({
           placeholder="Add any job duties, expectations, requirements, etc"
           register={register}
           required
-          errors={errors}
+          errorMessage={errors.description?.message as string}
         />
 
         <SelectorForm
@@ -86,7 +95,7 @@ const JobForm = ({
           placeholder="Company Location"
           register={register}
           required
-          errors={errors}
+          errorMessage={errors.location?.message as string}
         />
 
         <h3 className="text-2xl mb-5">Company Info</h3>
@@ -100,7 +109,7 @@ const JobForm = ({
               field={field}
               label="Company Name"
               placeholder="Company Name"
-              errors={errors.company ?? {}} // <-- asegura que sea un objeto
+              errorMessage={errors.company?.name?.message as string}
             />
           )}
         />
@@ -114,7 +123,7 @@ const JobForm = ({
               field={field}
               label="Company Description"
               placeholder="What does your company do?"
-              errors={errors.company ?? {}} // <-- asegura que sea un objeto
+              errorMessage={errors.company?.description?.message as string}
             />
           )}
         />
@@ -135,7 +144,7 @@ const JobForm = ({
               label="Contact Email"
               placeholder="Email address for applicants"
               type="email"
-              errors={errors.company ?? {}} // <-- asegura que sea un objeto
+              errorMessage={errors.company?.contactEmail?.message as string}
             />
           )}
         />
@@ -156,7 +165,7 @@ const JobForm = ({
               label="Contact Phone"
               placeholder="Optional phone for applicants"
               type="tel"
-              errors={errors.company ?? {}} // <-- asegura que sea un objeto
+              errorMessage={errors.company?.contactPhone?.message as string}
             />
           )}
         />

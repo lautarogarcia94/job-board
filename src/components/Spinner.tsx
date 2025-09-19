@@ -1,10 +1,23 @@
 import { ClipLoader } from 'react-spinners';
+import { LengthType } from 'react-spinners/helpers/props';
+
+type CssOverride = {
+  display?: string;
+  margin?: number;
+  marginRight?: string;
+};
+
+type SpinnerProps = {
+  color: string;
+  size: LengthType;
+  override: CssOverride;
+};
 
 const Spinner = ({
   color = '#4338ca',
   size = 150,
   override: customOverride,
-}) => {
+}: SpinnerProps) => {
   const defaultOverride = {
     display: 'block',
     margin: '100px auto',

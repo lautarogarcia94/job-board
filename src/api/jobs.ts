@@ -1,6 +1,8 @@
+import { Job, NewJob } from '../types/job';
+
 const API_URL = '/api/jobs/';
 
-export const updateJob = async (job) => {
+export const updateJob = async (job: Job): Promise<Job> => {
   const res = await fetch(API_URL + job.id, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
@@ -13,7 +15,7 @@ export const updateJob = async (job) => {
   return res.json();
 };
 
-export const deleteJob = async (id) => {
+export const deleteJob = async (id: string): Promise<boolean> => {
   const res = await fetch(API_URL + id, {
     method: 'DELETE',
     headers: { 'Content-Type': 'application/json' },
@@ -25,7 +27,7 @@ export const deleteJob = async (id) => {
   return res.json();
 };
 
-export const addJob = async (job) => {
+export const addJob = async (job: NewJob): Promise<Job> => {
   const res = await fetch(API_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -38,11 +40,11 @@ export const addJob = async (job) => {
   return res.json();
 };
 
-export const getJob = async (id) => {
+export const getJob = async (id: string): Promise<Job[]> => {
   return fetchJobsWithParam(API_URL + id);
 };
 
-export const getJobs = async (limit) => {
+export const getJobs = async (limit?: string): Promise<Job[]> => {
   let apiUrl = API_URL;
 
   if (limit) {
@@ -52,7 +54,7 @@ export const getJobs = async (limit) => {
   return fetchJobsWithParam(apiUrl);
 };
 
-export const fetchJobsWithParam = async (apiUrl) => {
+export const fetchJobsWithParam = async (apiUrl: string): Promise<Job[]> => {
   const res = await fetch(apiUrl);
 
   if (!res.ok) {

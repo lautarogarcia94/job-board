@@ -1,36 +1,34 @@
-import { UseFormRegisterReturn } from 'react-hook-form';
+import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
 type FieldType = {
   name: string;
 };
 
-type InputFormProps = {
+type InputFormProps<T extends FieldValues> = {
   label: string;
   type?: string;
   placeholder: string;
-  errors: Record<string, { message: string }>;
   field?: FieldType;
-  name: string;
-  register?: (name: string, options?: any) => UseFormRegisterReturn;
+  name?: Path<T>;
+  register?: UseFormRegister<T>;
+  errorMessage?: string;
+  required?: boolean;
 };
 
-const InputForm = ({
+function InputForm<T extends FieldValues>({
   label,
   type = 'text',
   placeholder,
-  errors,
+  errorMessage,
   field,
   name,
   register,
-}: InputFormProps) => {
+}: InputFormProps<T>) {
   const inputProps = field
     ? field
-    : register
+    : register && name
     ? register(name, { required: `${label} is required` })
     : {};
-
-  const errorKey = field ? field.name.split('.').pop() : name;
-  const errorMessage = errorKey ? errors?.[errorKey]?.message : undefined;
 
   return (
     <div className="mb-4">
@@ -49,6 +47,6 @@ const InputForm = ({
       )}
     </div>
   );
-};
+}
 
 export default InputForm;

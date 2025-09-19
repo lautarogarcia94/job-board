@@ -2,18 +2,23 @@ import Card from './Card';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import JobLocationMarker from '../JobLocationMarker';
+import { Job } from '../../types/job';
 
-const JobCard = ({ job }) => {
+type JobCardProps = {
+  job: Job;
+};
+
+const JobCard = ({ job }: JobCardProps) => {
   const [showFullDescription, setShowFullDescription] = useState(false);
 
-  const getDescription = () =>
+  const getDescription = (): string =>
     showFullDescription || job.description.length <= 90
       ? job.description
       : job.description.substring(90) + '...';
 
   const description = getDescription();
 
-  const toggleDescription = () => {
+  const toggleDescription = (): void => {
     setShowFullDescription((prev) => !prev);
   };
 

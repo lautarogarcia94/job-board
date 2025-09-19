@@ -1,9 +1,9 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, NavLinkRenderProps } from 'react-router-dom';
 import logo from '../assets/images/logo.png';
 import clsx from 'clsx';
 
-const Navbar = () => {
-  const setClassName = ({ isActive }) =>
+const Navbar: React.FC = () => {
+  const setClassName = ({ isActive }: NavLinkRenderProps): string =>
     clsx(
       'text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2',
       isActive && 'bg-black'

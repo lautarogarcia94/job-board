@@ -1,26 +1,27 @@
-import { UseFormRegisterReturn } from 'react-hook-form';
+import {
+  FieldErrors,
+  FieldValues,
+  Path,
+  UseFormRegister,
+} from 'react-hook-form';
 
-type TextFormProps = {
+type SelectorFormProps<T extends FieldValues> = {
   label: string;
   options: string[];
-  placeholder: string;
-  errors: Record<string, { message: string }>;
-  name: string;
-  register?: (
-    name: string,
-    options?: { required?: string }
-  ) => UseFormRegisterReturn;
-  required: boolean;
+  name: Path<T>;
+  register: UseFormRegister<T>;
+  errors: FieldErrors<T>;
+  required?: boolean;
 };
 
-const SelectorForm = ({
+function SelectorForm<T extends FieldValues>({
   name,
   label,
   options,
   register,
   required,
   errors,
-}: TextFormProps) => {
+}: SelectorFormProps<T>) {
   return (
     <div className="mb-4">
       <label htmlFor={name} className="block text-gray-700 font-bold mb-2">
@@ -46,6 +47,6 @@ const SelectorForm = ({
       )}
     </div>
   );
-};
+}
 
 export default SelectorForm;
