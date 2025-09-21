@@ -38,7 +38,10 @@ const router = createBrowserRouter(
           <ErrorPage
             errorMessage="404 Not Found"
             errorDescription="This page does not exist"
-            buttonAction="Go Back"
+            buttonAction={{
+              label: 'Go Back',
+              linkTo: '/',
+            }}
           />
         }
       />

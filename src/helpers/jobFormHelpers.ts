@@ -1,63 +1,56 @@
-export const titleInputParam = (value, onChangeEvent) => ({
+export const titleInputParam = (value: string) => ({
   labelTitle: 'Job Listing Name',
   value: value,
-  onChangeAction: onChangeEvent,
   required: true,
   id: 'title',
   placeholder: 'Job Name',
 });
 
-export const locationInputParam = (value, onChangeEvent) => ({
+export const locationInputParam = (value: string) => ({
   labelTitle: 'Location',
   value: value,
-  onChangeAction: onChangeEvent,
   required: true,
   id: 'location',
   placeholder: 'Company Location',
 });
 
-export const companyNameInputParam = (value, onChangeEvent) => ({
+export const companyNameInputParam = (value: string) => ({
   labelTitle: 'Company Name',
   value: value,
-  onChangeAction: onChangeEvent,
   required: true,
   id: 'company.name',
   placeholder: 'Company Name',
 });
 
-export const contactEmailInputParam = (value, onChangeEvent) => ({
+export const contactEmailInputParam = (value: string) => ({
   labelTitle: 'Contact Email',
   value: value,
-  onChangeAction: onChangeEvent,
   required: true,
   id: 'company.contactEmail',
   placeholder: 'Email address for applicants',
   type: 'email',
 });
 
-export const contactPhoneInputParam = (value, onChangeEvent) => ({
+export const contactPhoneInputParam = (value: string) => ({
   labelTitle: 'Contact Phone',
   value: value,
-  onChangeAction: onChangeEvent,
   required: false,
   id: 'company.contactPhone',
   placeholder: 'Optional phone for applicants',
   type: 'tel',
 });
 
-export const typeSelectorParam = (value, onChangeEvent) => ({
+export const typeSelectorParam = (value: string) => ({
   labelTitle: 'Job Type',
   value: value,
-  onChangeAction: onChangeEvent,
   required: true,
   id: 'type',
   options: ['Full-Time', 'Part-Time', 'Remote', 'Internship'],
 });
 
-export const salarySelectorParam = (value, onChangeEvent) => ({
+export const salarySelectorParam = (value: string) => ({
   labelTitle: 'Job Type',
   value: value,
-  onChangeAction: onChangeEvent,
   required: true,
   id: 'type',
   options: [
@@ -75,19 +68,17 @@ export const salarySelectorParam = (value, onChangeEvent) => ({
   ],
 });
 
-export const descriptionTextAreaParam = (value, onChangeEvent) => ({
+export const descriptionTextAreaParam = (value: string) => ({
   labelTitle: 'Description',
   value: value,
-  onChangeAction: onChangeEvent,
   id: 'description',
   placeholder: 'Add any job duties, expectations, requirements, etc',
   required: true,
 });
 
-export const companyDescriptionTextAreaParam = (value, onChangeEvent) => ({
+export const companyDescriptionTextAreaParam = (value: string) => ({
   labelTitle: 'Companny Description',
   value: value,
-  onChangeAction: onChangeEvent,
   id: 'company.description',
   placeholder: 'What does your company do?',
   required: true,

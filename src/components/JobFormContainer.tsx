@@ -2,16 +2,19 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { addJob, getJob, updateJob } from '../api/jobs';
 import { toast } from 'react-toastify';
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import JobForm from './forms/JobForm';
 import { queryClient } from '../query/reactQuery';
+import { Job, NewJob } from '../types/job';
 
-const JobFormContainer = ({ jobId }) => {
+type JobFormContainerProps = { jobId?: string };
+
+const JobFormContainer = ({ jobId }: JobFormContainerProps) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const isUpdate = jobId !== undefined;
+  const isUpdate = !!jobId;
 
-  const defaultJob = {
+  const defaultJob: NewJob = {
     title: '',
     type: 'Full-Time',
     description: '',
@@ -25,20 +28,18 @@ const JobFormContainer = ({ jobId }) => {
     },
   };
 
-  const { data: job } = useQuery({
+  const { data: job } = useSuspenseQuery<Job>({
     queryKey: ['job', jobId],
-    queryFn: () => getJob(jobId),
-    enabled: !!jobId,
-    suspense: !!jobId,
-    initialData: !jobId ? defaultJob : undefined,
+    queryFn: () => getJob(jobId!),
+    initialData: !jobId ? (defaultJob as Job) : undefined,
   });
 
-  const submitForm = async (job) => {
+  const submitForm = async (job: Job | NewJob) => {
     try {
       setLoading(true);
 
       const action = isUpdate ? updateJob : addJob;
-      const result = await action(job);
+      const result = await action(job as Job);
 
       toast.success(isUpdate ? 'Job updated' : 'Job created');
 
@@ -53,16 +54,15 @@ const JobFormContainer = ({ jobId }) => {
     }
   };
 
-  const invalidateCaches = (id) => {
-    queryClient.invalidateQueries(['job', id]);
-    queryClient.invalidateQueries(['jobs', 3]);
-    queryClient.invalidateQueries(['jobs', undefined]);
+  const invalidateCaches = (id: string) => {
+    queryClient.invalidateQueries({ queryKey: ['job', id] });
+    queryClient.invalidateQueries({ queryKey: ['jobs'] });
   };
 
   return (
     <JobForm
       actionText={isUpdate ? 'Update Job' : 'Create Job'}
-      initialJob={job}
+      initialJob={job!}
       onSubmit={submitForm}
       isSubmitting={loading}
       submittingButtonLabel={isUpdate ? 'Updating Job...' : 'Creating Job...'}
