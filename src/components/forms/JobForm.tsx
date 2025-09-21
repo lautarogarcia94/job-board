@@ -106,7 +106,8 @@ const JobForm = ({
           rules={{ required: 'Company Name is required' }}
           render={({ field }) => (
             <InputForm
-              field={field}
+              field={{ ...field, ref: field.ref }}
+              // field={field}
               label="Company Name"
               placeholder="Company Name"
               errorMessage={errors.company?.name?.message as string}
@@ -140,7 +141,8 @@ const JobForm = ({
           }}
           render={({ field }) => (
             <InputForm
-              field={field}
+              field={{ ...field, ref: field.ref }}
+              // field={field}
               label="Contact Email"
               placeholder="Email address for applicants"
               type="email"
@@ -161,7 +163,8 @@ const JobForm = ({
           }}
           render={({ field }) => (
             <InputForm
-              field={field}
+              field={{ ...field, ref: field.ref }}
+              // field={field}
               label="Contact Phone"
               placeholder="Optional phone for applicants"
               type="tel"

@@ -11,12 +11,14 @@ type SpinnerProps = {
   color?: string;
   size?: LengthType;
   override?: CssOverride;
+  dataTestId?: string;
 };
 
 const Spinner = ({
   color = '#4338ca',
   size = 150,
   override: customOverride,
+  dataTestId: testId,
 }: SpinnerProps) => {
   const defaultOverride = {
     display: 'block',
@@ -25,7 +27,14 @@ const Spinner = ({
 
   const mergedOverride = { ...defaultOverride, ...customOverride };
 
-  return <ClipLoader color={color} cssOverride={mergedOverride} size={size} />;
+  return (
+    <ClipLoader
+      color={color}
+      cssOverride={mergedOverride}
+      size={size}
+      data-testid={testId}
+    />
+  );
 };
 
 export default Spinner;

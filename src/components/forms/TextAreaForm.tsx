@@ -2,6 +2,10 @@ import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
 type FieldType = {
   name: string;
+  ref?: React.LegacyRef<HTMLInputElement>;
+  onChange?: (...args: any) => void;
+  onBlur?: (...args: any) => void;
+  value?: any;
 };
 
 type TextFormProps<T extends FieldValues> = {
@@ -28,13 +32,18 @@ function TextAreaForm<T extends FieldValues>({
     ? register(name, { required: `${label} is required` })
     : {};
 
+  const textAreaId = field?.name || name; // asegúrate de que id coincide con htmlFor
+
   return (
     <div className="mb-4">
-      <label htmlFor={name} className="block text-gray-700 font-bold mb-2">
+      <label
+        htmlFor={textAreaId}
+        className="block text-gray-700 font-bold mb-2"
+      >
         {label}
       </label>
       <textarea
-        id={name}
+        id={textAreaId}
         className="border rounded w-full py-2 px-3"
         rows={4}
         placeholder={placeholder}

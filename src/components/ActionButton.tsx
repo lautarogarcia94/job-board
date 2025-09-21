@@ -36,6 +36,7 @@ const ActionButton = ({
       {loading ? (
         <>
           <Spinner
+            dataTestId="spinner"
             color="white"
             size={15}
             override={{
