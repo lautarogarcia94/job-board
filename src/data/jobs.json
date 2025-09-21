@@ -97,6 +97,20 @@
         "contactEmail": "a@a.com",
         "contactPhone": ""
       }
+    },
+    {
+      "id": "ec16",
+      "title": "Internshipasd",
+      "type": "Remote",
+      "description": "Internship",
+      "location": "Internship",
+      "salary": "$70K - 80K / Year",
+      "company": {
+        "name": "Internship",
+        "description": "Internship",
+        "contactEmail": "Internship@Internship.com",
+        "contactPhone": ""
+      }
     }
   ]
 }
