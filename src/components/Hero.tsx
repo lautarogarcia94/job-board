@@ -1,4 +1,4 @@
-type HeroProps = { title: string; subtitle: string };
+type HeroProps = { title?: string; subtitle?: string };
 
 const Hero = ({
   title = 'Become a React Dev',

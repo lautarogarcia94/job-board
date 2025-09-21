@@ -1,7 +1,12 @@
 import { Link } from 'react-router-dom';
 import Card from './Card';
+import { InformationCard } from '../../types/informationCard';
 
-const InfoCard = ({ data }) => {
+type InfoCardProps = {
+  data: InformationCard;
+};
+
+const InfoCard = ({ data }: InfoCardProps) => {
   return (
     <Card className="p-6" bg={data.bg}>
       <h2 className="text-2xl font-bold">{data.title}</h2>

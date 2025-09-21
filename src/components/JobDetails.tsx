@@ -1,31 +1,35 @@
 import { deleteJob, getJob } from '../api/jobs';
 import { toast } from 'react-toastify';
-import ActionButton from '../components/ActionButton';
+import ActionButton from './ActionButton';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import Card from '../components/cards/Card';
-import JobLocationMarker from '../components/JobLocationMarker';
+import Card from './cards/Card';
+import JobLocationMarker from './JobLocationMarker';
 import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { queryClient } from '../query/reactQuery';
+import { Job } from '../types/job';
 
 const JobDetails = () => {
-  const { id } = useParams();
-  const { data: job, isFetching } = useQuery({
+  const { id } = useParams<{ id: string }>();
+
+  const { data: job } = useSuspenseQuery<Job>({
     queryKey: ['job', id],
-    queryFn: () => getJob(id),
+    queryFn: () => {
+      if (!id) throw new Error('Job id is required');
+      return getJob(id);
+    },
   });
 
   const [loadingDelete, setLoadingDelete] = useState(false);
   const navigate = useNavigate();
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id: string) => {
     try {
       setLoadingDelete(true);
       await deleteJob(id);
       toast.success('Job deleted');
 
-      queryClient.invalidateQueries(['jobs', 3]);
-      queryClient.invalidateQueries(['jobs', undefined]);
+      queryClient.invalidateQueries({ queryKey: ['jobs'] });
 
       navigate('/jobs');
     } catch (e) {
@@ -36,8 +40,16 @@ const JobDetails = () => {
     }
   };
 
+  if (!job) {
+    return (
+      <section className="container m-auto py-10 px-6">
+        <p>Job not found.</p>
+      </section>
+    );
+  }
+
   return (
-    !(isFetching && !job) && (
+    !!job && (
       <section>
         <div className="container m-auto py-10 px-6">
           <div className="grid grid-cols-1 md:grid-cols-[70%_30%] w-full gap-6">

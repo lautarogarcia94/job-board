@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 import JobListings from '../components/JobListings';
 import Spinner from '../components/Spinner';
 import ErrorBoundary from '../components/ErrorBoundary';
+import { queryClient } from '../query/reactQuery';
 
 const JobsPage = () => {
   return (
@@ -14,7 +15,8 @@ const JobsPage = () => {
           <ErrorBoundary
             errorMessage="Error loading data"
             errorDescription="We couldn't fetch the information. Please try again later."
-            action="Reload"
+            actionLabel="Reload"
+            action={() => queryClient.resetQueries({ queryKey: ['jobs'] })}
           >
             <Suspense fallback={<Spinner />}>
               <JobListings />

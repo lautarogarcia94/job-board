@@ -8,9 +8,9 @@ type CssOverride = {
 };
 
 type SpinnerProps = {
-  color: string;
-  size: LengthType;
-  override: CssOverride;
+  color?: string;
+  size?: LengthType;
+  override?: CssOverride;
 };
 
 const Spinner = ({

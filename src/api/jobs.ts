@@ -40,8 +40,14 @@ export const addJob = async (job: NewJob): Promise<Job> => {
   return res.json();
 };
 
-export const getJob = async (id: string): Promise<Job[]> => {
-  return fetchJobsWithParam(API_URL + id);
+export const getJob = async (id: string): Promise<Job> => {
+  const res = await fetch(API_URL + id);
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch jobs');
+  }
+
+  return res.json();
 };
 
 export const getJobs = async (limit?: string): Promise<Job[]> => {
@@ -51,10 +57,6 @@ export const getJobs = async (limit?: string): Promise<Job[]> => {
     apiUrl += `?_limit=${limit}`;
   }
 
-  return fetchJobsWithParam(apiUrl);
-};
-
-export const fetchJobsWithParam = async (apiUrl: string): Promise<Job[]> => {
   const res = await fetch(apiUrl);
 
   if (!res.ok) {
