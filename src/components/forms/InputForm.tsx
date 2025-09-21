@@ -2,6 +2,10 @@ import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
 type FieldType = {
   name: string;
+  ref?: React.LegacyRef<HTMLInputElement>;
+  onChange?: (...args: any) => void;
+  onBlur?: (...args: any) => void;
+  value?: any;
 };
 
 type InputFormProps<T extends FieldValues> = {
@@ -30,14 +34,16 @@ function InputForm<T extends FieldValues>({
     ? register(name, { required: `${label} is required` })
     : {};
 
+  const inputId = field?.name || name; // asegúrate de que id coincide con htmlFor
+
   return (
     <div className="mb-4">
-      <label className="block text-gray-700 font-bold mb-2" htmlFor={name}>
+      <label className="block text-gray-700 font-bold mb-2" htmlFor={inputId}>
         {label}
       </label>
       <input
         type={type}
-        id={name}
+        id={inputId}
         className="border rounded w-full py-2 px-3 mb-2"
         placeholder={placeholder}
         {...inputProps}
